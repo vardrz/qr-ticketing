@@ -5,10 +5,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name("base");
 
 Route::get('/scan', function () {
     return view('scan');
+})->name("scan");
+
+Route::get('/hasil/{hasil?}', function ($hasil = null) {
+    return view('scan_result', ["data" => $hasil]);
 });
 
 Route::get('/dashboard', function () {
