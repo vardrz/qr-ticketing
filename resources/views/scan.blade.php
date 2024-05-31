@@ -33,11 +33,7 @@
         	var txt = "innerText" in HTMLElement.prototype ? "innerText" : "textContent";
             var arg = {
                 resultFunction: function(result) {
-                    window.location.href = "/hasil/" + result.code;
-                    // document.querySelector('#hasil').innerHTML = encodeURI(result.code);
-                	// var aChild = document.createElement('li');
-                	// aChild[txt] = result.format + ': ' + result.code;
-                    // document.querySelector('body').appendChild(aChild);
+                    window.location.href = result.code;
                 }
             };
 

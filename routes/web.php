@@ -15,7 +15,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/scan', [BarcodeController::class, "scan"])->name("scan");
     Route::get('/dashboard', [BarcodeController::class, "generate"])->name("dashboard");
-    Route::get('/hasil/{hasil?}', [BarcodeController::class, "result"])->name("result");
+    Route::get('/verify/{hasil?}', [BarcodeController::class, "result"])->name("result");
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

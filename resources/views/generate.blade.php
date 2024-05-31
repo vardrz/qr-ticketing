@@ -56,7 +56,7 @@
                 var docID ="qr-INA-" + n.toString().padStart(4, "0");
 
                 var code ="INA-" + n.toString().padStart(4, "0");
-                var link = "https://tiket.agsa.site/verify/" + btoa(code);
+                var link = "https://inaguration.agsa.site/verify/" + btoa(code);
                 new QRCode(document.getElementById(docID), link);
             }
         </script>
