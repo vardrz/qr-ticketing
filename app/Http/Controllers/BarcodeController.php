@@ -23,6 +23,7 @@ class BarcodeController extends Controller
 
     public function result($result = null)
     {
-        return view('scan_result', ["data" => $result]);
+        $decoded = base64_decode($result);
+        return view('scan_result', ["data" => $decoded]);
     }
 }
