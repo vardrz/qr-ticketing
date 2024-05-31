@@ -23,7 +23,23 @@ class BarcodeController extends Controller
 
     public function result($result = null)
     {
+        if ($result == null) {
+            return redirect()->route("scan");
+        }
+
         $decoded = base64_decode($result);
-        return view('scan_result', ["data" => $decoded]);
+        $data = Barcode::where("code", $decoded)->first();
+
+        if ($data["status"] == "unused") {
+            Barcode::where("code", $decoded)->update([
+                "status" => "used"
+            ]);
+        }
+
+        // $data = [
+        //     "status" => "used"
+        // ];
+
+        return view('scan_result', ["data" => $data]);
     }
 }
