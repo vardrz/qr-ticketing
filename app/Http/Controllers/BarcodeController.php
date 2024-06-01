@@ -12,8 +12,15 @@ class BarcodeController extends Controller
         return view('scan');
     }
 
-    public function generate()
+    public function generate(Request $request)
     {
+        if ($request->has("search")) {
+            $data = Barcode::where("code", "like", "%" . $request->search . "%")->paginate(10);
+            return view('generate', [
+                "data" => $data
+            ]);
+        }
+
         $data = Barcode::paginate(10);
         // dd($data);
         return view('generate', [
