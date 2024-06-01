@@ -14,10 +14,20 @@ class BarcodeSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 1500; $i++) {
-            Barcode::factory()->create([
-                'code' => "INA-" . Str::padLeft($i + 1, 4, '0')
+        // Mempercepat insert banyak data menggunaan chunk
+        $dataToInsert = collect([]);
+        $totalData = 1500;
+
+        for ($i = 1; $i <= $totalData; $i++) {
+            $dataToInsert->push([
+                'code' => "INA-" . Str::padLeft($i, 4, '0')
             ]);
+        }
+
+        $dataChunks = $dataToInsert->chunk(500);
+
+        foreach ($dataChunks as $chunk) {
+            Barcode::insert($chunk->toArray());
         }
     }
 }
