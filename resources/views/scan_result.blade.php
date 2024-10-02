@@ -1,3 +1,11 @@
+@php
+    function dateTime($date){
+        $result = Carbon\Carbon::parse($date)->locale('id');
+        $result->settings(['formatFunction' => 'translatedFormat']);
+        return $result->format('l, j F Y - h:i a');
+    }
+@endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -25,6 +33,8 @@
                 </svg>
                 <span class="text-3xl">Terverifikasi</span>
                 <span class="mt-5 text-lg">Tiket anda terdaftar dan berhasil digunakan.</span>
+                <span class="mt-5 text-lg font-bold">Waktu Scan</span>
+                <span class="text-lg">{{dateTime($data->updated_at)}}</span>
                 <span class="mt-14 text-sm">Anda akan dialihkan ke halaman scan ulang dalam 5 detik...</span>
                 <span class="text-sm italic text-gray-500">(atau bisa langsung klik tombol dibawah)</span>
 
@@ -42,6 +52,8 @@
                 </svg>
                 <span class="text-3xl">Ticket Used</span>
                 <span class="mt-5 text-lg">Tiket anda sudah discan dan digunakan.</span>
+                <span class="mt-5 text-lg font-bold">Waktu Scan</span>
+                <span class="text-lg">{{dateTime($data->updated_at)}}</span>
                 <span class="mt-14 text-sm">Jika anda merasa ini salah, silahkan hubungi sekretariat.</span>
                 {{-- <span class="text-sm italic text-gray-500">(atau bisa langsung klik tombol dibawah)</span> --}}
 

@@ -1,9 +1,17 @@
-<?php 
+@php
+    function dateTime($date){
+        if($date == null){
+            return null;
+        }
 
-$classUsed = "text-xs text-white font-semibold p-2 bg-red-600 rounded-md";
-$classUnused = "text-xs text-white font-semibold p-2 bg-emerald-600 rounded-md";
+        $result = Carbon\Carbon::parse($date)->locale('id');
+        $result->settings(['formatFunction' => 'translatedFormat']);
+        return $result->format('l, j F Y - h:i a');
+    }
 
-?>
+    $classUsed = "text-xs text-white font-semibold p-2 bg-red-600 rounded-md";
+    $classUnused = "text-xs text-white font-semibold p-2 bg-emerald-600 rounded-md";
+@endphp
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -56,11 +64,14 @@ $classUnused = "text-xs text-white font-semibold p-2 bg-emerald-600 rounded-md";
                     <td>{{ $item['id'] }}</td>
                     <td>{{ $item['code'] }}</td>
                     <td>
-                        @if ($item['status'] == "unused")
-                            <span class="{{ $classUnused }}">Belum Digunakan</span>
-                        @else
-                            <span class="{{ $classUsed }}">Sudah Digunakan</span>
-                        @endif
+                        <div class="w-full flex flex-col items-center">
+                            @if ($item['status'] == "unused")
+                                <span class="{{ $classUnused }}">Belum Digunakan</span>
+                            @else
+                                <span class="{{ $classUsed }}">Sudah Digunakan</span>
+                            @endif
+                            <span class="pt-2">{{dateTime($item->updated_at)}}</span>
+                        </div>
                     </td>
                     <td class="inline-flex items-center"><div id="qr-{{ $item['code'] }}" class="w-[50px] md:w-[100px] py-5"></div></td>
                 </tr>
